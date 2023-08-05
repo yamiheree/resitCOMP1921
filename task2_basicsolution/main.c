@@ -27,6 +27,8 @@ int main(int argc, char **argv)
     // TO DO :
 
     // assign command line value to filename string
+    strcpy(bookFile, argv[1]);
+
 
     // DO NOT ALTER
     // start the system

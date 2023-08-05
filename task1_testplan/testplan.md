@@ -21,13 +21,14 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
- |  |  |  | [ ] |
+ | List out the booklist | ./bin/library books.txt | Prints out booklist in a specified format and also the number of books in the list | [ ] |
 
 ## Library
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
- |  |  |  | [ ] |
+ | turn booklist into an array |  |  | [ ] |
+ | book name might be too long |  |  |     |
 
 ## User
 
