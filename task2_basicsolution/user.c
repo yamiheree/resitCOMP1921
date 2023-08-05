@@ -25,6 +25,13 @@ void listAvailableBooks(Book *bookList, int numBooks)
   // TO DO :
 
   // print out available books with format "list number - author - title" on each line
+  for (int i = 0; i < numBooks; i++){
+
+    if (bookList[i].available == 1){
+      printf("%d - %s - %s \n", i, bookList[i].author, bookList[i].title);
+    }
+
+  }
 
   return;
 }
@@ -37,12 +44,46 @@ void listAvailableBooks(Book *bookList, int numBooks)
  * @param numBooks The number of books in bookList
  * @param maxBorrowed The maximum number of books a user can borrow.
  */
+
+// TODO:
+// 1. check if the user has reached their borrow limit
+// 2. ask user to enter the book ID to be borrowed
+// 3. check if bookID is valid/book is available
+// 4. if none of the above happens - record book into users boroowed books / set availiability of books to -
+ 
 void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
 {
 
   // TO DO :
   // request the choice of book
   // borrow the book, update the data structures
+  int borrow = optionChoice();
+  
+
+  // add 0 < borrow < numBooks
+  if (borrow < numBooks)
+  {
+    if (theUser->numBorrowed >= 0 && theUser->numBorrowed < maxBorrowed){
+      // numBorrowed should start from 0
+      // put the book details into the users borrowed books
+      theUser->borrowed[theUser->numBorrowed] = &bookList[borrow];
+      
+      // update the availability of book
+      bookList[borrow].available = 0;
+      
+      theUser->numBorrowed++;
+    }
+
+    else{
+      printf("You have exceeded the max borrowing limit (%d)\n", maxBorrowed);
+    }
+  }
+
+  else{
+    printf("Invalid number, try again \n");
+  }
+  
+    
 
   return;
 }
@@ -56,11 +97,12 @@ void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
  */
 void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
 {
-
-  // TO DO :
-
   // list books in format "number - author - title"
-
+  for (int i = 0; i < maxBorrowed; i++)
+  {
+    printf("%d - %s - %s \n", i, theUser->borrowed[i]->author, theUser->borrowed[i]->title);
+  }
+  
   return;
 }
 
@@ -72,14 +114,44 @@ void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
  * @param numBooks The number of books in bookList
  * @param maxBorrowed The maximum number of books which a user can borrow.
  */
+
+// TODO:
+// 1. If the user has no borrowed books, print out such remind and return
+// 2. otherwise ask user to enter the bookID to be returned
+// 3. check if the bookID entered is valid
+// 4. if yes, set availability of the book to 1, and update the user's borrowed
 void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
 {
-
   // TO DO :
-  // check that there are borrowed books
   // request the choice of book
   // return the book and update data structures
+  
+  // check that there are borrowed books
+  if (theUser->numBorrowed == 0){
+    printf("You have no borrowed books \n");
+  }
 
+  else {
+    // requesting choice of books 
+    int toReturn = optionChoice();
+
+    if (toReturn >= 0 && toReturn < theUser->numBorrowed){
+      //updating data structures
+      //theUser->borrowed[back] = '\0';
+      
+      for (int i = toReturn; i < (theUser->numBorrowed) - 1; i++)
+      {
+        *(theUser->borrowed[i]) = *(theUser->borrowed[i + 1]); 
+      }
+      
+      // *(theUser->borrowed[0]) = *(theUser->borrowed[1]); 
+      // *(theUser->borrowed[1]) = *(theUser->borrowed[2]); 
+      // *(theUser->borrowed[2]) = *(theUser->borrowed[3]); 
+      
+
+      bookList[toReturn].available = 1;
+    }
+  }
   return;
 }
 

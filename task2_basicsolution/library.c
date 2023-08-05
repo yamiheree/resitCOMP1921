@@ -24,35 +24,38 @@
  * @param bookFile The filename of where the books file will be found
  * @param theLibrary The library object which encapsulate the bookList and users.
  */
-void initLibrary(char *bookFile, Library *theLibrary)
+void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as well
 {
+  printf("initLibrary \n");
 
   theLibrary->maxBooks = 100;
   theLibrary->maxBorrowed = 4;
+  theLibrary->theUser.numBorrowed = 0;
 
   // TO DO :
 
   // dynamically allocate the bookList array for storing books
-  int numOfBooks = 100;
-  Book *bookList = (Book *)malloc(sizeof(Book) * numOfBooks);
+  theLibrary->bookList = (Book *)malloc(sizeof(Book) * theLibrary->maxBorrowed);
+  printf("book malloc \n");
 
   // open the book file
   FILE *inputFile = fopen(bookFile, "r");
 
-    if (inputFile == NULL){
-        printf("Error opening file. \n");
-        exit(1);
-    }
+  if (inputFile == NULL)
+  {
+    printf("Error opening file. \n");
+    exit(1);
+  }
 
-
-  //printf("%s \n", bookFile);
- 
+  // printf("%s \n", bookFile);
 
   // use the readBooks function to read in the file and add the book records into the bookList array
-  readBooks(inputFile, bookList);
+  theLibrary->numBooks = readBooks(inputFile, theLibrary->bookList);
+  printf("readbooks done\n");
 
   // remember to close the file
   fclose(inputFile);
+  printf("file closed \n");
 
   // Initialise the User data
 
@@ -73,66 +76,80 @@ void initLibrary(char *bookFile, Library *theLibrary)
  */
 int readBooks(FILE *books, Book *bookList)
 {
-
+  printf("readBooks\n");
   // TO DO:
-  char *buffer = (char *)malloc(sizeof(char)* BUFFERSIZE);
+  char *buffer = (char *)malloc(sizeof(char) * BUFFERSIZE);
   int c;
   int bookID = 0;
-  int bookOrAuthor = 0; //even - author name, odd - title name
-  
+  int bookOrAuthor = 0; // even - author name, odd - title name
+  printf("variable done\n");
+
   // read from the book file pointer
-  while((c = fgetc(books)) != EOF){
+  while ((c = fgetc(books)) != EOF)
+  {
     // allocating memory to the Book struct
     int count = 0;
 
-    while (1){    //when it is not at the end of file - read book name/author name
-     
+    while (1)
+    { // when it is not at the end of file - read book name/author name
+
       buffer[count] = (char)c;
 
-      if (c == '\0' || c == '\n'){
-        //abandon string and continue to the next line if the string reads \n or \0
-        if (buffer[0] == '\0' || buffer[0] == '\n'){
+      if (c == '\0' || c == '\n')
+      {
+        // abandon string and continue to the next line if the string reads \n or \0
+        if (buffer[0] == '\0' || buffer[0] == '\n')
+        {
           break;
         }
 
-        //store bookname or author
-        buffer[count]='\0';
+        // store bookname or author
+        buffer[count] = '\0';
 
-        if (bookOrAuthor % 2 == 0){
-          strcpy(bookList[bookID].author, buffer);
+        if (bookOrAuthor % 2 == 0)
+        {
+          memcpy(bookList[bookID].author, buffer, strlen(buffer)+1);
+          // strcpy(bookList[bookID].author, buffer);
+          bookList[bookID].available = 1;
+          printf("%s \n", bookList[bookID].author);
+          // printf("%d \n", bookOrAuthor);
+          bookOrAuthor++;
           break;
-          printf("this is bookID author \n");
+          // break;
         }
 
-        else{
-          strcpy(bookList[bookID].title, buffer);
+        else
+        {
+          memcpy(bookList[bookID].title, buffer, strlen(buffer)+1);
+          // strcpy(bookList[bookID].title, buffer);
           printf("%s \n", bookList[bookID].title);
+          // printf("%d \n", bookOrAuthor);
           bookID++;
+          printf("%d\n", bookID);
+          bookOrAuthor++;
+          break;
         }
-
-      bookOrAuthor++;
-
       }
 
       c = fgetc(books);
-      if(c == EOF){
+      if (c == EOF)
+      {
         break;
       }
-      //printf("%c\n", c);
+
       count++;
     }
   }
-  printf("12345\n");
   // assign values to a Book structure in the bookList array for each complete record
 
   // read data until the file ends
 
-  return 0;
+  return bookID;
 }
 
 /**
  * @brief Free any allocated data before exit.
- * 
+ *
  * @param theLibrary The library object where any allocated memory will be found.
  */
 void exitLibrary(Library *theLibrary)
@@ -141,12 +158,12 @@ void exitLibrary(Library *theLibrary)
   // TO DO:
 
   // free the allocated lists
-  free(theLibrary);
+  free(theLibrary->bookList);
 
   return;
 }
 
-// DO NOT ALTER THIS FUNCTION 
+// DO NOT ALTER THIS FUNCTION
 /**
  * @brief Sets up and runs the library interface - you should not edit any of this code.
  *
@@ -156,11 +173,13 @@ void libraryCLI(char *bookFile)
 {
   int libraryOpen = 1;
   int option;
+  printf("you are in libraryCLI \n");
 
   // create the library structure
   Library *theLibrary = (Library *)malloc(sizeof(Library));
 
   initLibrary(bookFile, theLibrary);
+  printf("you are after initLibrary \n");
 
   while (libraryOpen)
   {
