@@ -27,6 +27,13 @@ int main(int argc, char **argv)
     // TO DO :
 
     // assign command line value to filename string
+    char bookFile=argv[1];
+    FILE *inputFile = fopen(bookFile, "r");
+
+    if (bookFile == NULL){
+        printf("Error opening file. \n");
+        return 1;
+    }
 
     // DO NOT ALTER
     // start the system
