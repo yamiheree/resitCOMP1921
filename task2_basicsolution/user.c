@@ -57,21 +57,23 @@ void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
   // TO DO :
   // request the choice of book
   // borrow the book, update the data structures
-  int borrow = optionChoice();
+  int toBorrow = optionChoice();
   
 
   // add 0 < borrow < numBooks
-  if (borrow < numBooks)
+  if (toBorrow < numBooks)
   {
     if (theUser->numBorrowed >= 0 && theUser->numBorrowed < maxBorrowed){
       // numBorrowed should start from 0
       // put the book details into the users borrowed books
-      theUser->borrowed[theUser->numBorrowed] = &bookList[borrow];
+      theUser->borrowed[theUser->numBorrowed] = &bookList[toBorrow];
       
       // update the availability of book
-      bookList[borrow].available = 0;
+      bookList[toBorrow].available = 0;
       
       theUser->numBorrowed++;
+
+      printf("You successfully borrowed the book!\n");
     }
 
     else{
@@ -122,6 +124,7 @@ void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
 // 4. if yes, set availability of the book to 1, and update the user's borrowed
 void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
 {
+  printf("blep\n");
   // TO DO :
   // request the choice of book
   // return the book and update data structures
@@ -138,6 +141,7 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
     if (toReturn >= 0 && toReturn < theUser->numBorrowed){
       //updating data structures
       //theUser->borrowed[back] = '\0';
+      printf("blep\n");
       
       for (int i = toReturn; i < (theUser->numBorrowed) - 1; i++)
       {
@@ -147,7 +151,6 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
       // *(theUser->borrowed[0]) = *(theUser->borrowed[1]); 
       // *(theUser->borrowed[1]) = *(theUser->borrowed[2]); 
       // *(theUser->borrowed[2]) = *(theUser->borrowed[3]); 
-      
 
       bookList[toReturn].available = 1;
     }

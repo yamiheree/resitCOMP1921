@@ -54,8 +54,8 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
   printf("readbooks done\n");
 
   // remember to close the file
-  fclose(inputFile);
-  printf("file closed \n");
+  //fclose(inputFile);
+  printf("file is actually not closed lmao L\n");
 
   // Initialise the User data
 
@@ -139,6 +139,10 @@ int readBooks(FILE *books, Book *bookList)
 
       count++;
     }
+    // if (c == EOF)
+    //   {
+    //     break;
+    //   }
   }
   // assign values to a Book structure in the bookList array for each complete record
 
