@@ -27,7 +27,7 @@ int main(int argc, char **argv)
     // TO DO :
 
     // assign command line value to filename string
-    strcpy(bookFile, argv[1]);
+    memcpy(bookFile, argv[1], strlen(argv[1])+1);
 
 
     // DO NOT ALTER

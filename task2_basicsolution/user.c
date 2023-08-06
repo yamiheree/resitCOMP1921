@@ -100,7 +100,7 @@ void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
 void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
 {
   // list books in format "number - author - title"
-  for (int i = 0; i < maxBorrowed; i++)
+  for (int i = 0; i < theUser->numBorrowed; i++)
   {
     printf("%d - %s - %s \n", i, theUser->borrowed[i]->author, theUser->borrowed[i]->title);
   }
@@ -153,6 +153,7 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
       // *(theUser->borrowed[2]) = *(theUser->borrowed[3]); 
 
       bookList[toReturn].available = 1;
+      printf("Book returned \n");
     }
   }
   return;
@@ -189,6 +190,7 @@ void userCLI(Library *theLibrary)
     {
       printf("\nReturn book from my list:\n");
       listMyBooks(&(theLibrary->theUser), theLibrary->bookList, theLibrary->maxBorrowed);
+      printf("after list\n");
       returnBook(&(theLibrary->theUser), theLibrary->bookList, theLibrary->numBooks, theLibrary->maxBorrowed);
     }
     else if (option == 4)

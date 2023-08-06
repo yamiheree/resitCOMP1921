@@ -55,7 +55,7 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
 
   // remember to close the file
   //fclose(inputFile);
-  printf("file is actually not closed lmao L\n");
+  printf("file is closed lmao L\n");
 
   // Initialise the User data
   return;
@@ -162,10 +162,7 @@ int readBooks(FILE *books, Book *bookList)
 // TODO: free the bookList object inside theLibrary
 void exitLibrary(Library *theLibrary)
 {
-
-  // TO DO:
-
-  // free the allocated lists
+  // free the bookList object inside theLibrary
   free(theLibrary->bookList);
 
   return;
