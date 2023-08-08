@@ -25,34 +25,21 @@
  * @param theLibrary The library object which encapsulate the bookList and users.
  */
 void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as well
-{
-  printf("initLibrary \n");
 
+{
   theLibrary->maxBooks = 100;
   theLibrary->maxBorrowed = 4;
+  theLibrary->bookList = malloc(theLibrary->maxBooks*sizeof(Book));
+
+  FILE* books = fopen(bookFile, "r");
+
+  theLibrary->numBooks = readBooks(books,theLibrary->bookList);
+
+  fclose(books);
   theLibrary->theUser.numBorrowed = 0;
 
-  // TO DO :
-
-  // dynamically allocate the bookList array for storing books
-  theLibrary->bookList = (Book *)malloc(sizeof(Book) * theLibrary->maxBorrowed);
-  printf("book malloc \n");
-
-  // open the book file
-  FILE *inputFile = fopen(bookFile, "r");
-
-  // printf("%s \n", bookFile);
-
-  // use the readBooks function to read in the file and add the book records into the bookList array
-  theLibrary->numBooks = readBooks(inputFile, theLibrary->bookList);
-  printf("readbooks done\n");
-
-  // remember to close the file
-  fclose(inputFile);
-  printf("file is closed\n");
-
-  // Initialise the User data
   return;
+
 }
 
 /**
