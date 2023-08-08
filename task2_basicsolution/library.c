@@ -49,7 +49,7 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
 
   // remember to close the file
   fclose(inputFile);
-  printf("file is closed lmao L\n");
+  printf("file is closed\n");
 
   // Initialise the User data
   return;
