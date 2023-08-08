@@ -15,7 +15,7 @@
 #include "librarian.h"
 #include "utility.h"
 
-#define BUFFERSIZE 1024
+#define BUFFERSIZE 40
 
 /**
  * @brief Function to initialise the Library object, reading in the books from file
@@ -41,12 +41,6 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
   // open the book file
   FILE *inputFile = fopen(bookFile, "r");
 
-  if (inputFile == NULL)
-  {
-    printf("Error opening file. \n");
-    exit(1);
-  }
-
   // printf("%s \n", bookFile);
 
   // use the readBooks function to read in the file and add the book records into the bookList array
@@ -54,7 +48,7 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
   printf("readbooks done\n");
 
   // remember to close the file
-  //fclose(inputFile);
+  fclose(inputFile);
   printf("file is closed lmao L\n");
 
   // Initialise the User data
@@ -81,11 +75,16 @@ int readBooks(FILE *books, Book *bookList)
 {
   printf("readBooks\n");
   // TO DO:
-  char *buffer = (char *)malloc(sizeof(char) * BUFFERSIZE);
+  char buffer[BUFFERSIZE];
   int c;
   int bookID = 0;
   int bookOrAuthor = 0; // even - author name, odd - title name
   printf("variable done\n");
+
+  // for (int i = 0; i < 40; i++)
+  // {
+  //   buffer[i] = '\0';
+  // }
 
   // read from the book file pointer
   while ((c = fgetc(books)) != EOF)
@@ -111,8 +110,8 @@ int readBooks(FILE *books, Book *bookList)
 
         if (bookOrAuthor % 2 == 0)
         {
-          memcpy(bookList[bookID].author, buffer, strlen(buffer)+1);
-          // strcpy(bookList[bookID].author, buffer);
+          // memcpy(bookList[bookID].author, buffer, strlen(buffer)+1);
+          strcpy(bookList[bookID].author, buffer);
           bookList[bookID].available = 1;
           printf("%s \n", bookList[bookID].author);
           // printf("%d \n", bookOrAuthor);
@@ -123,8 +122,8 @@ int readBooks(FILE *books, Book *bookList)
 
         else
         {
-          memcpy(bookList[bookID].title, buffer, strlen(buffer)+1);
-          // strcpy(bookList[bookID].title, buffer);
+          // memcpy(bookList[bookID].title, buffer, strlen(buffer)+1);
+          strcpy(bookList[bookID].title, buffer);
           printf("%s \n", bookList[bookID].title);
           // printf("%d \n", bookOrAuthor);
           bookID++;
@@ -142,15 +141,9 @@ int readBooks(FILE *books, Book *bookList)
 
       count++;
     }
-    // if (c == EOF)
-    //   {
-    //     break;
-    //   }
+    
   }
-  // assign values to a Book structure in the bookList array for each complete record
-
-  // read data until the file ends
-
+  
   return bookID;
 }
 

@@ -24,11 +24,8 @@ int main(int argc, char **argv)
 {
     char bookFile[40];
 
-    // TO DO :
-
     // assign command line value to filename string
-    memcpy(bookFile, argv[1], strlen(argv[1])+1);
-
+    strcpy(bookFile, argv[1]);
 
     // DO NOT ALTER
     // start the system
