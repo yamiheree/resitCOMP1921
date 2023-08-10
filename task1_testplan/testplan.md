@@ -10,10 +10,10 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
 | Test Case      | Data To Use | Expected Outcome | Passing? |
 | ----------- | ----------- | ----------- | ------------ |
-| Valid books file  | ./bin/library books.txt  | Program proceeds with no issues | [ ] |
-| Books file does not exist  |  ./bin/library fake.txt  |  Program should exit and alert user | [ ] |
+| Valid books file  | ./bin/library books.txt  | Program proceeds with no issues | [x] |
+| Books file does not exist  |  ./bin/library fake.txt  |  Program should exit and alert user | [x] |
 | Books file has no read permissions | chmod -r books.txt <br> ./bin/library books.txt <br> chmod +r books.txt | Program should exit and alert user | [ ] |
-| No books file provided | ./bin/library  | Program should give usage message and exit | [ ] |
+| No books file provided | ./bin/library  | Program should give usage message and exit | [x] |
 
 *There are lots more tests you could include here - try and think of more!*
 
@@ -21,19 +21,22 @@ Make sure you run these tests regularly and mark off whether they are passing - 
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
- | List out the booklist | ./bin/library books.txt | Prints out booklist in a specified format and also the number of books in the list | [ ] |
+ | List out the booklist | ./bin/library books.txt | Prints out booklist in a specified format and also the number of books in the list | [x] |
+ | Returning a book | returnBook | the data in borrowed[ ] moves up by one in the array after the book returns | [x] |
 
 ## Library
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
  | turn booklist into an array |  |  | [ ] |
- | book name might be too long |  |  |     |
+ | book name might be too long | initLibrary() | memory would be dynamically allocated | [x] |
 
 ## User
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
+ | User exceeded borrow limit and still attempts to borrow |  |  | [ ] |
+ | User borrowing a book that is unavailable | bookList[i].available | Tell user that book is unavailable and returns to the previous page | [x] |
  |  |  |  | [ ] |
 
 ## Anything Else

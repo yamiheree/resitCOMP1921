@@ -90,12 +90,6 @@ void listMyBooks(User *theUser, Book *bookList, int maxBorrowed)
   return;
 }
 
-// void booklist_debugger (Book *bookList, int numBooks){
-//   for (int i=0; i < numBooks; i ++){
-//     printf("bookID: %d | author: %s | title: %s | avail: %s\n", i, bookList[i].author, booklist[i].title, bookList[i].availability);
-//   }
-// }
-
 /**
  * @brief Return a book to the library, making it available for others to borrow.
  *

@@ -66,12 +66,6 @@ int readBooks(FILE *books, Book *bookList)
   int c;
   int bookID = 0;
   int bookOrAuthor = 0; // even - author name, odd - title name
-  printf("variable done\n");
-
-  // for (int i = 0; i < 40; i++)
-  // {
-  //   buffer[i] = '\0';
-  // }
 
   // read from the book file pointer
   while ((c = fgetc(books)) != EOF)
@@ -97,11 +91,9 @@ int readBooks(FILE *books, Book *bookList)
 
         if (bookOrAuthor % 2 == 0)
         {
-          // memcpy(bookList[bookID].author, buffer, strlen(buffer)+1);
           strcpy(bookList[bookID].author, buffer);
           bookList[bookID].available = 1;
-          printf("%s \n", bookList[bookID].author);
-          // printf("%d \n", bookOrAuthor);
+
           bookOrAuthor++;
           break;
           // break;
@@ -109,12 +101,9 @@ int readBooks(FILE *books, Book *bookList)
 
         else
         {
-          // memcpy(bookList[bookID].title, buffer, strlen(buffer)+1);
           strcpy(bookList[bookID].title, buffer);
-          printf("%s \n", bookList[bookID].title);
-          // printf("%d \n", bookOrAuthor);
+
           bookID++;
-          printf("%d\n", bookID);
           bookOrAuthor++;
           break;
         }
@@ -164,7 +153,6 @@ void libraryCLI(char *bookFile)
   Library *theLibrary = (Library *)malloc(sizeof(Library));
 
   initLibrary(bookFile, theLibrary);
-  printf("you are after initLibrary \n");
 
   while (libraryOpen)
   {
