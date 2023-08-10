@@ -54,13 +54,9 @@ void initLibrary(char *bookFile, Library *theLibrary) //initialize theUser as we
  * @param bookList The bookList where the books will be stored.
  * @return int The number of books read from the file.
  */
-// TODO: 
-// 1. debug the code (Hint: add one "break" statement somewhere is enough(;)
-// 2. prevent buffer overflow (Hint: make use of realloc())
-// 3. returns the number of books read
+
 int readBooks(FILE *books, Book *bookList)
 {
-  printf("readBooks\n");
   // TO DO:
   char buffer[BUFFERSIZE];
   int c;
@@ -147,7 +143,6 @@ void libraryCLI(char *bookFile)
 {
   int libraryOpen = 1;
   int option;
-  printf("you are in libraryCLI \n");
 
   // create the library structure
   Library *theLibrary = (Library *)malloc(sizeof(Library));

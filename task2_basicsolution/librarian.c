@@ -25,13 +25,7 @@ void listBorrowedBooks(Book *bookList, int numBooks)
     {
         if (bookList[i].available == 0)
         {
-            for (int i = 0; i < numBooks; i++)
-            {
-                if (bookList[i].available == 0)
-                {
-                    printf("%s - %s\n", bookList[i].author, bookList[i].title);
-                }
-            }
+            printf("%s - %s\n", bookList[i].author, bookList[i].title);
         }
     }
     return;
