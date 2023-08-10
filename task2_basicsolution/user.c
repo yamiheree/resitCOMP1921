@@ -46,6 +46,11 @@ void borrowBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
   // request the choice of book
   int toBorrow = optionChoice();
 
+  if (toBorrow == '\0'){
+    printf("Returning to previous page \n");
+    return;
+  }
+
   if (toBorrow >= numBooks || toBorrow < 0){
     printf("BookID invalid! \n");
     return;
@@ -117,6 +122,11 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
     // requesting choice of books
     int toReturn = optionChoice();
 
+    if (toReturn == '\0'){
+      printf("Returning to previous page \n");
+      return;
+    }
+
     if (toReturn >= 0 && toReturn < theUser->numBorrowed)
     {
       // updating book availability
@@ -125,7 +135,6 @@ void returnBook(User *theUser, Book *bookList, int numBooks, int maxBorrowed)
       // updating data structures of theUser's bookList
       for (int i = toReturn; i < ((theUser->numBorrowed)) - 1; i++)
       {
-        printf("this is book %d \n", i);
         theUser->borrowed[i] = theUser->borrowed[i + 1];
       }
 
@@ -174,7 +183,6 @@ void userCLI(Library *theLibrary)
     {
       printf("\nReturn book from my list:\n");
       listMyBooks(&(theLibrary->theUser), theLibrary->bookList, theLibrary->maxBorrowed);
-      printf("after list\n");
       returnBook(&(theLibrary->theUser), theLibrary->bookList, theLibrary->numBooks, theLibrary->maxBorrowed);
     }
     else if (option == 4)

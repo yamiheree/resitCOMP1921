@@ -24,6 +24,13 @@ int main(int argc, char **argv)
 {
     char bookFile[40];
 
+    // check if file is provided
+    if (argv[1] == NULL)
+    {
+        printf("No book file provided. Exiting.\n");
+        return 1;
+    }
+
     // assign command line value to filename string
     strcpy(bookFile, argv[1]);
 

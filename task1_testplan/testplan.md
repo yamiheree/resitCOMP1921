@@ -22,22 +22,25 @@ Make sure you run these tests regularly and mark off whether they are passing - 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
  | List out the booklist | ./bin/library books.txt | Prints out booklist in a specified format and also the number of books in the list | [x] |
- | Returning a book | returnBook | the data in borrowed[ ] moves up by one in the array after the book returns | [x] |
+ | Print out available books | listBorrowedBooks | print out all the books where bookList[i].available == 0 | [x] |
 
 ## Library
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
- | turn booklist into an array |  |  | [ ] |
+ | turn booklist into an array | initLibrary() | Reads through all the data from books.txt and put into bookList with respective details such as title, author and bookID | [x] |
+ | Empty booklist | initLibrary() | Program exits and alert user | [x] |
  | book name might be too long | initLibrary() | memory would be dynamically allocated | [x] |
 
 ## User
 
  | Test Case | Data To Use | Expected Outcome | Passing? |
  | -- | -- | -- | -- |
- | User exceeded borrow limit and still attempts to borrow |  |  | [ ] |
+ | User exceeded borrow limit and still attempts to borrow | theUser -> numBorrowed | Inform user that they can't borrow any more books and returns | [x] |
  | User borrowing a book that is unavailable | bookList[i].available | Tell user that book is unavailable and returns to the previous page | [x] |
- |  |  |  | [ ] |
+ | User wants to leave the current option | press enter | Returns to the previous menu | [x] |
+ | User returns one of the books from his bookList | theUser -> borrowed[] | theUser->borrowed[] updates and moves the books in the list forward by one | [x] |
+ | User wants to see the available books | booklist[i].available == 1 | Prints out the books available with their respective bookID | [x] |
 
 ## Anything Else
 
